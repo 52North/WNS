@@ -1,50 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- /***************************************************************
- /"A service by which a client may conduct asynchronous dialogues 
- (message interchanges) with one or more other services. This 
- service is useful when many collaborating services are required 
- to satisfy a client request, and/or when significant delays are 
- involved is satisfying the request. This service was defined 
- under OWS 1.2 in support of SPS operations. WNS has broad 
- applicability in many such multi-service applications.
- 
- Copyright (C) 2007 by 52°North Initiative for Geospatial 
- Open Source Software GmbH
-
- Author: Dennis Dahlmann, University of Muenster
-
- Contact: Andreas Wytzisk, 52°North Initiative for Geospatial 
- Open Source Software GmbH,  Martin-Luther-King-Weg 24,
- 48155 Muenster, Germany, info@52north.org
-
- This program is free software; you can redistribute and/or  
- modify it under the terms of the GNU General Public License 
-  version 2 as published by the Free Software Foundation.
-
- This program is distributed in the hope that it will be useful,  
- but WITHOUT ANY WARRANTY; without even the implied warranty of  
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the  
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License 
- along with this program (see gnu-gpl v2.txt); if not, write to  the 
- Free Software Foundation, Inc., 59 Temple Place - Suite 330,  
- Boston, MA 02111-1307, USA or visit the Free Software Foundation's  
- web page, http://www.fsf.org.
-
- ***************************************************************/ -->
-<WNSConfig xmlns="http://www.52north.org/wns" xmlns:wns="http://www.opengis.net/wns/0.0"
+<WNSConfig xmlns="http://www.52north.org/wns/v2" xmlns:wns="http://www.opengis.net/wns/0.0"
 	xmlns:ows="http://www.opengis.net/ows" xmlns:xlink="http://www.w3.org/1999/xlink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.52north.org/wns ../../xml/xsd/wnsConfigFiles.xsd">
+	xsi:schemaLocation="http://www.52north.org/wns/v2 ../../xml/xsd/wnsConfigFiles.xsd">
 	<ServiceProperties>
-		<MaxTTLOfMessages>@ttl@</MaxTTLOfMessages>
-		<ExceptionLevel>@exceptionlevel@</ExceptionLevel>
-		<WNSURL>@url@/@webappname@/wns</WNSURL>
-		<WNSSchemaLocation>http://www.opengis.net/wns/0.0
-			http://schemas.opengis.net/wns/0.0.0/wnsAll.xsd</WNSSchemaLocation>
-		<OWSSchemaLocation>http://www.opengis.net/ows
-			http://schemas.opengis.net/ows/1.0.0/owsExceptionReport.xsd</OWSSchemaLocation>
+		<MaxTTLOfMessages>P7D</MaxTTLOfMessages>
+        <!-- <ExceptionLevel>PlainExceptions</ExceptionLevel> -->
+		<ExceptionLevel>DetailedExceptions</ExceptionLevel>
+		<WNSURL>${org.n52.wns.external.url}</WNSURL>
+		<WNSSchemaLocation>http://www.opengis.net/wns/0.0 http://schemas.opengis.net/wns/0.0.0/wnsAll.xsd</WNSSchemaLocation>
+		<OWSSchemaLocation>http://www.opengis.net/ows http://schemas.opengis.net/ows/1.0.0/owsExceptionReport.xsd</OWSSchemaLocation>
 		<DAOFactoryDriver>org.n52.wns.db.ExistDatabaseDAOFactory</DAOFactoryDriver>
 		<!-- Take care of the "/", don´t use "\" -->
 		<!--If you use the eXist database DAO a property file is not needed!-->
@@ -185,26 +150,31 @@
 			</ows:OperationsMetadata>
 		</CapabilitiesBaseInformation>
 		<DataBaseProperties>
-			<DBName>@dbname@</DBName>
-			<user>@dbusername@</user>
-			<password>@dbpassword@</password>
-			<URL>@dburl@</URL>
-			<checkDBDuration>@dbduration@</checkDBDuration>
+			<DBName>${org.n52.database.name}</DBName>
+			<user>${org.n52.database.username}</user>
+			<password>${org.n52.database.password}</password>
+			<URL>${org.n52.database.url}</URL>
+			<checkDBDuration>30</checkDBDuration>
 		</DataBaseProperties>
+		
+		<!-- TODO can we filter this by maven? -->
 		<WSDLDocumentPath>@tomcathome@/webapps/@webappname@/WEB-INF/conf/wns.wsdl</WSDLDocumentPath>
-		<DebugMode>@debugmode@</DebugMode>
+		
+		
+		
+		<DebugMode>false</DebugMode>
 	</ServiceProperties>
 	<RegisteredHandlers>
 		<!--The settings for the smtp account to send emails-->
 		<EMailHandler>
 			<Provider>org.n52.wns.mail.MailHandlerBAW2011</Provider>			
 			<SMTP>
-				<Host></Host>
-				<User></User>
-				<Passwd></Passwd>
-				<Sender></Sender>
+				<Host>http://host.de</Host>
+				<User>user</User>
+				<Passwd>password</Passwd>
+				<Sender>smtp.sender.net</Sender>
 				<Authenticate>true</Authenticate>
-				<Port></Port>
+				<Port>0000</Port>
 				<EmailSubject>52n Web Notification Service</EmailSubject>
 				<SSL>true</SSL>
 				<TLS>true</TLS>

@@ -38,6 +38,7 @@
 package org.n52.wns;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -120,9 +121,8 @@ public class WNS extends HttpServlet {
          // parse WNSConfig
          try {
             
-            wnscd = WNSConfigDocument.Factory.parse(
-                  this.getServletContext().getResourceAsStream(
-                        "/WEB-INF/conf/" + wnsConfig));
+             InputStream stream = getClass().getResourceAsStream("/" + wnsConfig);
+            wnscd = WNSConfigDocument.Factory.parse(stream);
 
             // validate WNSConfig
             ArrayList validationErrors = new ArrayList();

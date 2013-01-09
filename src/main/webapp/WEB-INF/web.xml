@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-	<display-name>52North WNS Service, Version: @buildversion@; @buildtime@</display-name>
-	<!-- Die Konfiguration der Datenquellen für den WNS -->
+	<display-name>${project.artifactId} webapp (built on: ${timestamp})</display-name>
 
     <servlet>
         <servlet-name>WNS</servlet-name>
