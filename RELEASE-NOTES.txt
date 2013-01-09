@@ -1,0 +1,75 @@
+RELEASE NOTES
+
+Main functions
+========================
+
+ The Web Notification Service acts as a protocol transducer.
+ The WNS is able to register SingelUser and MultiUser. A SingleUser 
+ is a user with a name and one or more protocols. A Multi user is 
+ a group of SingleUser.
+ The WNS can send messages. A notification 
+ should just notify the user that something happened. A communication message
+ will show the user where the user can interact with the calling service.
+ If a user is registered to SMS, FAX or PHONE the WNS will store the complete 
+ message and will only provide a short message of the message, a messageID and 
+ the URL where to get the complete message. If the user is registered to email,
+ http or xmpp the message will be delivered completely.
+ 
+ To setup the WNS please refer to the installation guide, found in the documentation folder
+ 
+Release 52n-sensorweb-wns-v2-00-01
+==================================
+- Added provider element to e-mail handler. This enables the user to change the mailhandler at runtime.
+- Added DebugMode switch to wns config to en/disable ListWNSUser request.
+- Added namespace to XML data type XMLHashMap
+- Added new test client v2.0 using javascript and code highlighting
+- Fixed BUG 511. Internally, java.lang.Long user ids are used
+- Fixed BUG 513. 
+
+Release 52N-WNS-RFC
+=========================
+- Updated implementation to reflect WNS RFC package contents. The schema
+  bindings had to be updated.
+- We changed the type of sms/phone/fax numbers in XML schema from integer to
+  token so that the WNS now preserves leading zeros in requests.
+
+Release 52N-WNS-v2-00-00
+=========================
+- According to OGC best practice paper 06-095 the WNS has lost the operation
+  doCommunication
+- The compile settings were changed to the new SUN JAVA 6.0, but the version 5.0
+  should work also
+- Now it is possible to add MultiUser to other MultiUser. By allowing this
+  a circular dependency could occur during adding new MultiUser. To prevent
+  this dependency the WNS checks now the new MultiUser if these dependencies
+  can occur before the user will be added
+- Bug fix: If you unregister a SingleUser this user will be now removed from
+  every MultiUser. The bug was that the user document was not be updated, but
+  the internal datastructure removed the SingleUser from every MultiUser
+  
+  
+
+Development Snapshot 52nWNS-2006-1212-CVS
+=========================
+- Major bug fixes
+- Due to some SMTP servers the email sending doesn't worked in the previously
+  release. Java released a new JAVA MAIL Api, which allows easy SSL sending and it
+  is easy to switch the connection mode to TLS.
+- The DAO's use now completely the eXist database to store messages and the user document
+- The ability to log errors were integrated, it uses the log4J api
+
+Known Bugs:
+- In some cases the SMTP server connection doesn't work. A known server which 
+  shows this error is:
+  				secmail.uni-muenster.de
+  Please tell me other servers that doesn't work with this snapshot.
+  
+
+Release 52N-WNSv1-00-00
+=========================
+- Initial release of the WNS
+- Needed software: (for download links see the installationguide)
+	- Apache Tomcat
+	- eXist XML Database
+	- Java RE
+- All necessary steps will be provided in the 52N-WNSv1-00-00-Installationguide

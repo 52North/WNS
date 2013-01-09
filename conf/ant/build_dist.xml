@@ -1,0 +1,228 @@
+<?xml version="1.0"?>
+<!-- /***************************************************************
+ /"A service by which a client may conduct asynchronous dialogues 
+ (message interchanges) with one or more other services. This 
+ service is useful when many collaborating services are required 
+ to satisfy a client request, and/or when significant delays are 
+ involved is satisfying the request. This service was defined 
+ under OWS 1.2 in support of SPS operations. WNS has broad 
+ applicability in many such multi-service applications.
+ 
+ Copyright (C) 2008 by 52°North Initiative for Geospatial 
+ Open Source Software GmbH
+
+ Author: Johannes Echterhoff, University of Muenster
+
+ Contact: Andreas Wytzisk, 52°North Initiative for Geospatial 
+ Open Source Software GmbH,  Martin-Luther-King-Weg 24,
+ 48155 Muenster, Germany, info@52north.org
+
+ This program is free software; you can redistribute and/or  
+ modify it under the terms of the GNU General Public License 
+  version 2 as published by the Free Software Foundation.
+
+ This program is distributed in the hope that it will be useful,  
+ but WITHOUT ANY WARRANTY; without even the implied warranty of  
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the  
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License 
+ along with this program (see gnu-gpl v2.txt); if not, write to  the 
+ Free Software Foundation, Inc., 59 Temple Place - Suite 330,  
+ Boston, MA 02111-1307, USA or visit the Free Software Foundation's  
+ web page, http://www.fsf.org.
+
+ ***************************************************************/ -->
+
+<project name="52°north WNS distribution" default="all" basedir="../../">
+	<description>Creates the distribution of the 52n WNS</description>
+
+
+	<!-- =================================================================== -->
+	<!-- properties and paths -->
+	<!-- =================================================================== -->
+
+	<property file="conf/ant/build_dist.properties" />
+
+	<path id="build.classpath">
+		<fileset dir="${lib}">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${build.classpath.common}">
+			<include name="**/*.jar" />
+		</fileset>
+
+		<fileset dir="${build.classpath.jre}">
+			<include name="**/*.jar" />
+			<include name="*.jar" />
+		</fileset>
+
+	</path>
+
+	<!-- =================================================================== -->
+	<!-- targets -->
+	<!-- =================================================================== -->
+
+	<target name="all" depends="clean, javadoc, copy, zip" description="creates the distribution of the 52north WNS" />
+
+	<target name="clean" description="removes all distribution files of the 52north WNS framework and its targets">
+		<delete dir="${dist}" />
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- compile the sourcecode -->
+	<!-- =================================================================== -->
+<!--	<target name="build">
+		<mkdir dir="${build}/classes" />
+		<javac encoding="ISO-8859-1" srcdir="${src}" destdir="${build}/classes" 
+			classpathref="build.classpath" debug="${build.debug}">
+			<exclude name="**/test/**/*.*" />
+		</javac>
+	</target>
+-->
+
+	<!-- =================================================================== -->
+	<!-- create javadoc -->
+	<!-- =================================================================== -->
+	
+	<target name="javadoc">
+		<!--Create the documentation directory -->
+		<mkdir dir="${dist}/javadoc" />
+		<javadoc access="private" author="true" doctitle="52n WNS" 
+			windowtitle="52n WNS" destdir="${dist}/javadoc">
+		    <fileset dir="${src}" defaultexcludes="yes">
+		      	<include name="**/*.java"/>
+		    	<exclude name="**/test/**/*.*" />
+		    </fileset>
+			<!-- <packageset dir="${src}">
+				<exclude name="**/test/**/*.*/" />
+			</packageset> -->
+
+			<classpath>
+				<path refid="build.classpath">
+				</path>
+			</classpath>
+			<link href="http://java.sun.com/javase/6/docs/api/" />
+			<link href="http://jakarta.apache.org/tomcat/tomcat-5.5-doc/servletapi/" />
+			<doctitle>
+				<![CDATA[<h1>52n WNS</h1>]]></doctitle>
+		<bottom>
+			<![CDATA[<i>Copyright &#169; 2008 52n GmbH All rights reserved. <a href="http://www.52north.org"> http://www.52north.org</a>
+		</i>]]></bottom>
+	</javadoc>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- copy everything to dist -->
+	<!-- =================================================================== -->
+	<target name="copy" depends="">
+	
+		<!-- copy all source files to the distribution folder -->
+		<copy toDir="${dist}/src" overwrite="false">
+			<fileset dir="${src}" casesensitive="yes">
+				<include name="**/*.java" />
+				<exclude name="**/test/**/*.*" />
+			</fileset>
+		</copy>
+
+		<mkdir dir="${dist}/lib" />
+		<mkdir dir="${dist}/conf" />
+		
+		<!-- copy the classes to WEB-INF/classes -->
+	<!--	<copy toDir="${dist.webinf}/classes">
+			<fileset dir="${build}/classes">
+				<include name="**/*.*" />
+			</fileset>
+		</copy> -->
+		
+		<!-- copy the log4j property file to dist/conf folder -->
+		<copy todir="${dist}/conf" overwrite="true">
+			<fileset file="${conf}/ant/log4j.properties" />
+		</copy>
+		
+		<!-- copy the config.xml to dist/conf -->
+		<copy todir="${dist}/conf">
+			<fileset file="${conf}/ant/config.xml"/>
+		</copy>
+	
+		<!-- copy the wns.wsdl to dist/conf -->
+		<copy todir="${dist}/conf">
+			<fileset file="${conf}/ant/wns.wsdl"/>
+		</copy>
+		
+		<!-- copy the log.txt to dist/conf -->
+		<copy todir="${dist}/conf">
+			<fileset file="${conf}/ant/log.txt"/>
+		</copy>
+
+		<!-- copy the libs to dist/lib -->
+		<copy toDir="${dist}/lib">
+			<fileset dir="${lib}" casesensitive="yes">
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+		
+		
+		<!-- copy all example requests to html -->
+		<copy toDir="${dist}/html">
+			<fileset dir="" casesensitive="yes">
+				<include name="**/*.htm" />
+				<include name="**/*.html" />
+				<exclude name="**/WebContent/**/*.*" />
+				<exclude name="**/${dist}/**/*.*" />
+			</fileset>
+		</copy>
+
+		<!-- copy all xml stuff to dist/xsd -->
+		<copy toDir="${dist}/xsd/OGC">
+			<fileset dir="${basedir}/xml/xsd/OGCSchemata" casesensitive="yes"/>
+		</copy>
+		<copy toDir="${dist}/xsd/52North">
+			<fileset dir="${basedir}/xml/xsd" casesensitive="yes">
+				<include name="*.xsd" />
+			</fileset>
+		</copy>
+	
+		<!-- copy the documentation -->
+		<copy toDir="${dist}">
+			<fileset dir="doc/howto" casesensitive="yes">
+				<include name="*.pdf" />
+			</fileset>
+		</copy>
+		
+		<!-- copy the license and release-notes files to the distribution folder -->
+		<copy toDir="${dist}/">
+			<fileset dir="${basedir}" casesensitive="no">
+				<include name="gnu-gplv2.txt" />
+				<include name="RELEASE-NOTES.txt" />
+			</fileset>
+		</copy>
+		
+		<!-- copy web.xml -->
+		<copy toDir="${dist}/conf">
+			<fileset file="${conf}/ant/web.xml" />
+		</copy>
+				
+		<!-- copy build.xml and build.properties to dist -->
+		<copy toDir="${dist}">
+			<fileset dir="${conf}/ant" >
+				<include name="build.xml" />
+				<include name="build.properties" />
+			</fileset>
+		</copy>
+
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- zip the dist -->
+	<!-- =================================================================== -->
+	
+	<target name="zip" depends="copy">
+	<!-- create zip file -->
+	<zip destfile="${dist}/${zipname}.zip" update="true">
+		<zipfileset dir="${dist}" prefix="${zipname}" />
+		<exclude name="*.zip" />
+	</zip>
+	</target>
+	
+</project>
