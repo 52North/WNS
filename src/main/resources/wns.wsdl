@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wns="http://www.opengis.net/wns" targetNamespace="http://www.opengis.net/wns">
+   <types>
+      <schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.xmlsoap.org/wsdl/" xmlns="http://www.w3.org/2001/XMLSchema">
+         <import namespace="http://www.opengis.net/wns" schemaLocation="../wnsAll.xsd"/>
+      </schema>
+   </types>
+   <message name="GetCapabilitiesInput">
+      <part name="parameter" element="wns:GetCapabilities"/>
+   </message>
+   <message name="RegisterInput">
+      <part name="parameter" element="wns:Register"/>
+   </message>
+   <message name="UpdateSingleUserRegistrationInput">
+      <part name="parameter" element="wns:UpdateSingleUserRegistration"/>
+   </message>
+   <message name="UpdateMultiUserRegistrationInput">
+      <part name="parameter" element="wns:UpdateMultiUserRegistration"/>
+   </message>
+   <message name="UnregisterInput">
+      <part name="parameter" element="wns:Unregister"/>
+   </message>
+   <message name="DoNotificationInput">
+      <part name="parameter" element="wns:DoNotification"/>
+   </message>
+   <message name="GetMessageInput">
+      <part name="parameter" element="wns:GetMessage"/>
+   </message>
+   <message name="GetCapabilitiesOutput">
+      <part name="parameter" element="wns:Capabilities"/>
+   </message>
+   <message name="RegisterOutput">
+      <part name="parameter" element="wns:RegisterResponse"/>
+   </message>
+   <message name="UpdateSingleUserRegistrationOutput">
+      <part name="parameter" element="wns:UpdateSingleUserRegistrationResponse"/>
+   </message>
+   <message name="UpdateMultiUserRegistrationOutput">
+      <part name="parameter" element="wns:UpdateMultiUserRegistrationResponse"/>
+   </message>
+   <message name="UnregisterOutput">
+      <part name="parameter" element="wns:UnregisterResponse"/>
+   </message>
+   <message name="DoNotificationOutput">
+      <part name="parameter" element="wns:DoNotificationResponse"/>
+   </message>
+   <message name="GetMessageOutput">
+      <part name="parameter" element="wns:GetMessageResponse"/>
+   </message>
+   <portType name="wnsPortType">
+      <operation name="GetCapabilities">
+         <input message="wns:GetCapabilitiesInput"/>
+         <output message="wns:GetCapabilitiesOutput"/>
+      </operation>
+      <operation name="Register">
+         <input message="wns:RegisterInput"/>
+         <output message="wns:RegisterOutput"/>
+      </operation>
+      <operation name="UpdateSingleUserRegistration">
+         <input message="wns:UpdateSingleUserRegistrationInput"/>
+         <output message="wns:UpdateSingleUserRegistrationOutput"/>
+      </operation>
+      <operation name="UpdateMultiUserRegistration">
+         <input message="wns:UpdateMultiUserRegistrationInput"/>
+         <output message="wns:UpdateMultiUserRegistrationOutput"/>
+      </operation>
+      <operation name="Unregister">
+         <input message="wns:UnregisterInput"/>
+         <output message="wns:UnregisterOutput"/>
+      </operation>
+      <operation name="DoNotification">
+         <input message="wns:DoNotificationInput"/>
+         <output message="wns:DoNotificationOutput"/>
+      </operation>
+      <operation name="GetMessage">
+         <input message="wns:GetMessageInput"/>
+         <output message="wns:GetMessageOutput"/>
+      </operation>
+   </portType>
+   <binding name="wnsBinding" type="wns:wnsPortType">
+      <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+      <operation name="GetCapabilities">
+         <soap:operation soapAction="http://wns.foo.bar/SOAP/GetCapabilities"/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+      <operation name="Register">
+         <soap:operation soapAction="http://wns.foo.bar/SOAP/Register"/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+      <operation name="UpdateSingleUserRegistration">
+         <soap:operation soapAction="http://wns.foo.bar/SOAP/UpdateSingleUserRegistration"/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+      <operation name="UpdateMultiUserRegistration">
+         <soap:operation soapAction="http://wns.foo.bar/SOAP/UpdateSingleUserRegistration"/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+      <operation name="Unregister">
+         <soap:operation soapAction="http://wns.foo.bar/SOAP/Unregister"/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+      <operation name="DoNotification">
+         <soap:operation soapAction="http://wns.foo.bar/SOAP/DoNotification"/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+      <operation name="GetMessage">
+         <soap:operation soapAction="http://wns.foo.bar/SOAP/GetMessage"/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+   </binding>
+   <service name="wnsService">
+      <port name="wnsSoap" binding="wns:wnsBinding">
+         <soap:address location="http://wns.foo.bar/"/>
+      </port>
+   </service>
+</definitions>

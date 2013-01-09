@@ -1,0 +1,355 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>org.n52</groupId>
+		<artifactId>52-North</artifactId>
+		<version>5.6.3</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.n52.sensorweb</groupId>
+	<artifactId>52n-wns</artifactId>
+	<version>2.0.0</version>
+	<name>52North WNS</name>
+	<inceptionYear>2013</inceptionYear>
+	<description>52North implementation for OGC RFC WNS 0.8.3</description>
+	<issueManagement>
+		<system>Bugzilla</system>
+		<url>https://bugzilla.52north.org/</url>
+	</issueManagement>
+	<licenses>
+		<license>
+			<name>GNU GENERAL PUBLIC LICENSE Version 2, June 1991</name>
+			<url>http://www.gnu.org/licenses/gpl.txt</url>
+		</license>
+	</licenses>
+	<packaging>war</packaging>
+
+	<dependencies>
+		<!-- ### XML BINDING DEPENDENCIES ### -->
+		<dependency>
+			<groupId>org.n52.sensorweb</groupId>
+			<artifactId>52n-xml-wns-v083</artifactId>
+			<version>${oxf.common.xml.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.9</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>exist</groupId>
+			<artifactId>exist-xmldb</artifactId>
+			<version>${exist.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>exist</groupId>
+			<artifactId>exist-resolver</artifactId>
+			<version>${exist.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>exist</groupId>
+			<artifactId>exist</artifactId>
+			<version>${exist.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.4.5</version>
+		</dependency>
+<dependency>
+	<groupId>jivesoftware</groupId>
+	<artifactId>smack</artifactId>
+	<version>2.0.0</version>
+</dependency>
+<dependency>
+	<groupId>jivesoftware</groupId>
+	<artifactId>smackx</artifactId>
+	<version>2.0.0</version>
+</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<compilerVersion>1.6</compilerVersion>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<inherited>true</inherited>
+				<configuration>
+					<archive>
+						<!-- no index leads to errors, in some classloaders -->
+						<index>false</index>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+						<manifestEntries>
+							<Implementation-Revision>${buildNumber}</Implementation-Revision>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>xmlbeans-maven-plugin</artifactId>
+				<version>2.3.3</version>
+				<configuration>
+					<noJavac>true</noJavac>
+					<memoryInitialSize>256</memoryInitialSize>
+					<memoryMaximumSize>256</memoryMaximumSize>
+					<download>false</download>
+					<schemaDirectory>src/main/xsd</schemaDirectory>
+					<xsdJars>
+						<xsdJar>org.n52.sensorweb:52n-ogc-schema</xsdJar>
+					</xsdJars>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>default</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<!-- check for correct source file headers during test phase: http://code.google.com/p/maven-license-plugin/wiki/HowTo -->
+				<!-- run "mvn license:check -Dyear=2011" to check -->
+				<!-- run "mvn license:format -Dyear=2011" to add to the files -->
+				<groupId>com.mycila.maven-license-plugin</groupId>
+				<artifactId>maven-license-plugin</artifactId>
+				<version>1.9.0</version>
+				<configuration>
+					<header>misc/52N_license.txt</header>
+					<aggregate>true</aggregate>
+					<excludes>
+						<exclude>**/log4j*</exclude>
+						<exclude>**/*.xml</exclude>
+						<exclude>**/*.html</exclude>
+						<exclude>**/webapp/codemirror/**</exclude>
+						<exclude>**/webapp/WEB-INF/web.xml</exclude>
+						<exclude>**/webapp/WEB-INF/wsdl/*.*</exclude>
+						<exclude>**/buildNumber.properties</exclude>
+					</excludes>
+					<includes>
+						<include>**/*.java</include>
+						<include>**/*.jsp</include>
+						<include>**/*.js</include>
+						<include>**/*.xsl</include>
+						<include>**/*.sql</include>
+					</includes>
+					<strictCheck>true</strictCheck>
+					<properties>
+						<year>${project.inceptionYear}</year>
+					</properties>
+					<mapping>
+						<sch>XML_STYLE</sch>
+					</mapping>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>test</phase>
+						<!-- test will fail if license headers are not correct, run license:format 
+							to add the headers. -->
+						<goals>
+							<!-- <goal>check</goal> <goal>format</goal> -->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.google.code.maven-svn-revision-number-plugin</groupId>
+				<artifactId>svn-revision-number-maven-plugin</artifactId>
+				<version>1.12</version> <!-- please use the latest version -->
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>revision</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<entries>
+						<entry>
+							<prefix>svn.info</prefix>
+						</entry>
+					</entries>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+
+	<repositories>
+		<repository>
+			<id>n52-releases</id>
+			<name>52n Releases</name>
+			<url>http://52north.org/maven/repo/releases/</url>
+		</repository>
+		<repository>
+			<id>n52-snapshots</id>
+			<name>52n Snapshots</name>
+			<url>http://52north.org/maven/repo/snapshots/</url>
+		</repository>
+		<repository>
+			<id>jboss</id>
+			<url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>apache-snapshots</id>
+			<name>Apache Snapshots</name>
+			<url>http://people.apache.org/repo/m2-snapshot-repository</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+
+	<profiles>
+		<profile>
+			<id>env-example</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<!-- EXAMPLE CONFIG PROPERTIES FOLLOW. TO SEPARATE CONFIGURATION FROM 
+					PROJECT, COPY build-example.properties to ${user.home}/build.properties CUSTOMIZE 
+					PROPERTIES AND TRIGGER MAVEN BUILD WITH `mvn install -Denv=dev'. -->
+				<sps.external.dcp.operation.url>http://localhost:8080/${applicationName}/sps</sps.external.dcp.operation.url>
+				<sps.external.admin.extension.url>http://localhost:8080/${applicationName}/admin</sps.external.admin.extension.url>
+
+				<config.logger.fileappender.filepath>${user.home}/52n-logs/${project.artifactId}-${project.version}</config.logger.fileappender.filepath>
+				<config.logger.level>DEBUG</config.logger.level>
+				<config.logger.consoleappender.level>DEBUG</config.logger.consoleappender.level>
+				<config.logger.fileappender.level>WARN</config.logger.fileappender.level>
+
+				<org.n52.database.username>postgres</org.n52.database.username>
+				<org.n52.database.password>postgres</org.n52.database.password>
+				<org.n52.hibernate.hbm2ddl.auto>create</org.n52.hibernate.hbm2ddl.auto>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>env-dev</id>
+			<properties>
+				<env>dev</env>
+				<!-- externalize build parameters for productive environment -->
+				<local.configfile>${user.home}/sps_v2-build-${env}.properties</local.configfile>
+			</properties>
+			<build>
+				<filters>
+					<filter>${local.configfile}</filter>
+				</filters>
+			</build>
+		</profile>
+
+		<profile>
+			<id>release</id>
+			<!-- a profile which shall be activated if a release is performed, it 
+				is also automatic activated in the ci environment. -->
+			<activation>
+				<property>
+					<name>env</name>
+					<value>ci</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-release-plugin</artifactId>
+						<configuration>
+							<!-- no build in release:prepare (takes to long time), so in bad cases 
+								release fails on perform -->
+							<preparationGoals>clean</preparationGoals>
+							<autoVersionSubmodules>true</autoVersionSubmodules>
+							<tagBase>https://svn.52north.org/svn/swe/main/SPS/Services/tags/</tagBase>
+							<goals>deploy, assembly:single</goals>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>assembly</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
+
+	<properties>
+		<service.path>52n-sps-webapp</service.path>
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<oxf.version>1.12</oxf.version>
+		<applicationName>${project.artifactId}-${project.version}</applicationName>
+		<test.config.logger.level>INFO</test.config.logger.level>
+		<exist.version>0.9.2</exist.version>
+		<oxf.common.xml.version>1.1.3-SNAPSHOT</oxf.common.xml.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
+		<maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
+	</properties>
+
+</project>
