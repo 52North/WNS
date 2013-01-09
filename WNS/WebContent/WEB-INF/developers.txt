@@ -1,0 +1,27 @@
+Dear Developer,
+
+You have to edit two files to run the WNS from within your Eclipse IDE.
+
+1) The web.xml
+Change the value of
+'<param-value>E:/workspace/52nWNS/WebContent/WEB-INF/conf/config.xml</param-value>'
+to the path of your workspace!
+
+2) The config.xml can be found in the folder conf
+
+Edit the value for
+<WNSURL>http://localhost:8080/52nWNS/wns</WNSURL>
+to your host url
+
+Edit the values for the database connection of
+<user>admin</user>
+<password></password>
+<URL>localhost:8080/exist</URL>
+to your values
+
+Edit the path of the wns.wsdl file
+<WSDLDocumentPath>E:/workspace/52nWNS/WebContent/WEB-INF/conf/wns.wsdl</WSDLDocumentPath>
+to your path
+
+Edit the <RegisteredHandlers> to your needs. If any handler should not be used then
+delete it or comment it out!!!
