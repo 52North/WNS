@@ -12,8 +12,6 @@
 		<OWSSchemaLocation>http://www.opengis.net/ows http://schemas.opengis.net/ows/1.0.0/owsExceptionReport.xsd</OWSSchemaLocation>
 		<DAOFactoryDriver>org.n52.wns.db.ExistDatabaseDAOFactory</DAOFactoryDriver>
 		<!-- Take care of the "/", don´t use "\" -->
-		<!--If you use the eXist database DAO a property file is not needed!-->
-		<DAOFactoryPropertiesLocation>@daofactory@</DAOFactoryPropertiesLocation>
 		<CapabilitiesBaseInformation version="0.0.0">
 			<ows:ServiceIdentification>
 				<ows:Title>52north WNS</ows:Title>
