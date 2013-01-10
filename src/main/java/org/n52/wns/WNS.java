@@ -163,7 +163,7 @@ public class WNS extends HttpServlet {
          }         
 			
 		} catch (WNSException e) {
-			this.log.error("Could not initialise WNS.",e);
+			log.error("Could not initialise WNS.",e);
 			throw new ServletException("Could not initialise WNS", e);
 		}
 	}
@@ -190,8 +190,8 @@ public class WNS extends HttpServlet {
 
 		} catch (WNSException e) {
 
-			this.log.error("An exception occurred while handling Get request: "
-					+ e.getMessage(),e);
+			log.error("An exception occurred while handling Get request: "
+					+ e.getMessage(), e);
 
 			// try to send ExceptionReport
 			WNSServiceException se = new WNSServiceException(this.initParams
@@ -205,8 +205,8 @@ public class WNS extends HttpServlet {
 						.getOgcExceptionSchemaLocation(), response);
 			} catch (WNSException e1) {
 				// log that the exception could not be sent
-				this.log.error("The exception could not be sent: "
-						+ e.getMessage(),e);
+				log.error("The exception could not be sent: "
+						+ e.getMessage(), e);
 			}
 		}
 	}
@@ -225,7 +225,7 @@ public class WNS extends HttpServlet {
 
 		} catch (Exception e) {
 
-			this.log
+			log
 					.error("An exception occurred while handling Post request: "
 							+ e.getMessage(),e);
 
@@ -241,7 +241,7 @@ public class WNS extends HttpServlet {
 						.getOgcExceptionSchemaLocation(), response);
 			} catch (WNSException e1) {
 				// log that the exception could not be sent
-				this.log.error("The exception could not be sent: "
+				log.error("The exception could not be sent: "
 						+ e.getMessage(),e);
 			}
 		}
