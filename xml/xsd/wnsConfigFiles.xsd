@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wns="http://www.opengis.net/wns/0.0" xmlns="http://www.52north.org/wns" xmlns:ows="http://www.opengis.net/ows" targetNamespace="http://www.52north.org/wns" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns:wns="http://www.opengis.net/wns/0.0" xmlns="http://www.52north.org/wns/v2" 
+    xmlns:ows="http://www.opengis.net/ows" targetNamespace="http://www.52north.org/wns/v2" 
+    elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.opengis.net/wns/0.0" schemaLocation="OGCSchemata/wnsCommon.xsd"/>
 	<xs:import namespace="http://www.opengis.net/ows" schemaLocation="http://schemas.opengis.net/ows/1.0.0/owsAll.xsd"/>
 	<xs:element name="WNSUser">
