@@ -17,6 +17,14 @@ Main functions
  
  To setup the WNS please refer to the installation guide, found in the documentation folder
  
+Release 52n-wns-2.1.0-SNAPSHOT
+==============================
+- Switch to a Maven managed project
+- Dropped project hosted xsd files. Now 52n-xml-wns-v009 dependency is being selected
+  automatically from Maven
+- Change namespace http://www.52north.org/wns/ to http://www.52north.org/wns/v2 to 
+  make it version dependend
+ 
 Release 52n-sensorweb-wns-v2-00-01
 ==================================
 - Added provider element to e-mail handler. This enables the user to change the mailhandler at runtime.
