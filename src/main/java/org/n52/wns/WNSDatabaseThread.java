@@ -110,7 +110,7 @@ public class WNSDatabaseThread implements Runnable {
 	      thread.start();
 	      
 		} catch (WNSException e) {
-			log.error("Error during database checkup: " + e.toString());
+			log.error("Error during database checkup: " + e.toString(), e);
 		}
 	}
 
