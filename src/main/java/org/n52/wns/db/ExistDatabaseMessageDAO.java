@@ -121,8 +121,7 @@ public class ExistDatabaseMessageDAO implements MessageDAO {
       this.dbUser = this.wnsConfig.getServiceProperties().getDataBaseProperties().getUser();
       this.dbPwd = this.wnsConfig.getServiceProperties().getDataBaseProperties().getPassword();
 
-      this.connectionURL = "xmldb:exist://" + this.dbURL + "/xmlrpc" + "/db/"
-            + this.dbName;
+      this.connectionURL = this.dbURL + this.dbName;
 
       String driver = "org.exist.xmldb.DatabaseImpl";
       Class<?> cl;
@@ -136,8 +135,7 @@ public class ExistDatabaseMessageDAO implements MessageDAO {
          
          if (this.col == null) {
             // initialize the collection
-            Collection root = DatabaseManager.getCollection("xmldb:exist://"
-                  + this.dbURL + "/xmlrpc" + "/db", this.dbUser, this.dbPwd);
+            Collection root = DatabaseManager.getCollection(dbURL, this.dbUser, this.dbPwd);
             CollectionManagementService mgtService = (CollectionManagementService) root.getService(
                   "CollectionManagementService", "1.1");
             this.col = mgtService.createCollection(this.dbName);

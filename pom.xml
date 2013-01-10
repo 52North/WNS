@@ -269,7 +269,8 @@
 				<config.logger.fileappender.level>WARN</config.logger.fileappender.level>
 
 				<org.n52.wns.external.url>http://localhost:8080/${applicationName}/wns</org.n52.wns.external.url>
-				<org.n52.database.url>localhost:8080/exist</org.n52.database.url>
+				
+				<org.n52.database.url>xmldb:exist://localhost:8080/exist/xmlrpc/db/</org.n52.database.url>
 				<org.n52.database.name>52nWNSMessages</org.n52.database.name>
 				<org.n52.database.username>admin</org.n52.database.username>
 				<org.n52.database.password>admin</org.n52.database.password>
@@ -281,7 +282,7 @@
 			<properties>
 				<env>dev</env>
 				<!-- externalize build parameters for productive environment -->
-				<local.configfile>${user.home}/sps_v2-build-${env}.properties</local.configfile>
+				<local.configfile>${user.home}/wns_v2-build-${env}.properties</local.configfile>
 			</properties>
 			<build>
 				<filters>

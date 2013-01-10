@@ -54,8 +54,8 @@
 				<ows:Operation name="GetCapabilities">
 					<ows:DCP>
 						<ows:HTTP>
-							<ows:Get xlink:href="@url@/@webappname@/wns?"/>
-							<ows:Post xlink:href="@url@/@webappname@/wns"/>
+							<ows:Get xlink:href="${org.n52.wns.external.url}?"/>
+							<ows:Post xlink:href="${org.n52.wns.external.url}"/>
 						</ows:HTTP>
 					</ows:DCP>
 					<ows:Parameter name="service">
@@ -72,7 +72,7 @@
 				<ows:Operation name="Register">
 					<ows:DCP>
 						<ows:HTTP>
-							<ows:Post xlink:href="@url@/@webappname@/wns"/>
+							<ows:Post xlink:href="${org.n52.wns.external.url}"/>
 						</ows:HTTP>
 					</ows:DCP>
 					<ows:Parameter name="service">
@@ -85,7 +85,7 @@
 				<ows:Operation name="Unregister">
 					<ows:DCP>
 						<ows:HTTP>
-							<ows:Post xlink:href="@url@/@webappname@/wns"/>
+							<ows:Post xlink:href="${org.n52.wns.external.url}"/>
 						</ows:HTTP>
 					</ows:DCP>
 					<ows:Parameter name="service">
@@ -98,7 +98,7 @@
 				<ows:Operation name="UpdateSingleUserRegistration">
 					<ows:DCP>
 						<ows:HTTP>
-							<ows:Post xlink:href="@url@/@webappname@/wns"/>
+							<ows:Post xlink:href="${org.n52.wns.external.url}"/>
 						</ows:HTTP>
 					</ows:DCP>
 					<ows:Parameter name="service">
@@ -111,7 +111,7 @@
 				<ows:Operation name="UpdateMultiUserRegistration">
 					<ows:DCP>
 						<ows:HTTP>
-							<ows:Post xlink:href="@url@/@webappname@/wns"/>
+							<ows:Post xlink:href="${org.n52.wns.external.url}"/>
 						</ows:HTTP>
 					</ows:DCP>
 					<ows:Parameter name="service">
@@ -124,7 +124,7 @@
 				<ows:Operation name="GetMessage">
 					<ows:DCP>
 						<ows:HTTP>
-							<ows:Post xlink:href="@url@/@webappname@/wns"/>
+							<ows:Post xlink:href="${org.n52.wns.external.url}"/>
 						</ows:HTTP>
 					</ows:DCP>
 					<ows:Parameter name="service">
@@ -137,7 +137,7 @@
 				<ows:Operation name="DoNotification">
 					<ows:DCP>
 						<ows:HTTP>
-							<ows:Post xlink:href="@url@/@webappname@/wns"/>
+							<ows:Post xlink:href="${org.n52.wns.external.url}"/>
 						</ows:HTTP>
 					</ows:DCP>
 					<ows:Parameter name="service">

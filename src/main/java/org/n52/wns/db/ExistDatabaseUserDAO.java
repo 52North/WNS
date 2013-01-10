@@ -102,8 +102,7 @@ public class ExistDatabaseUserDAO implements UserDAO {
 		this.dbPwd = this.wnsConfig.getServiceProperties()
 				.getDataBaseProperties().getPassword();
 
-		this.connectionURL = "xmldb:exist://" + this.dbURL + "/xmlrpc" + "/db/"
-				+ this.dbName;
+		this.connectionURL = this.dbURL + this.dbName;
 
 		String driver = "org.exist.xmldb.DatabaseImpl";
 		Class cl;
@@ -120,7 +119,7 @@ public class ExistDatabaseUserDAO implements UserDAO {
 
 				Collection root = DatabaseManager.getCollection(
 						// TODO Change DATABASE NAME
-						"xmldb:exist://" + this.dbURL + "/xmlrpc" + "/db",
+						dbURL,
 						this.dbUser, this.dbPwd);
 
 				CollectionManagementService mgtService = (CollectionManagementService) root
