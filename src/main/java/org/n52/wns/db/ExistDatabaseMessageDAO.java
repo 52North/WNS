@@ -337,7 +337,7 @@ public class ExistDatabaseMessageDAO implements MessageDAO {
    }
 
    /**
-    * @see org.n52.wns.db.MessageDAO#storeMessagesHashTable(noNamespace.XMLHashTableDocument)
+    * @see org.n52.wns.db.MessageDAO#storeMessagesHashTable(XMLHashTableDocument)
     */
    public void storeMessagesHashTable(XMLHashTableDocument table)
          throws WNSException {
