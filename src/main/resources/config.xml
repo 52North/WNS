@@ -156,12 +156,6 @@
 			<URL>${org.n52.database.url}</URL>
 			<checkDBDuration>30</checkDBDuration>
 		</DataBaseProperties>
-		
-		<!-- TODO can we filter this by maven? -->
-		<WSDLDocumentPath>@tomcathome@/webapps/@webappname@/WEB-INF/conf/wns.wsdl</WSDLDocumentPath>
-		
-		
-		
 		<DebugMode>false</DebugMode>
 	</ServiceProperties>
 	<RegisteredHandlers>
