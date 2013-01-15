@@ -262,7 +262,7 @@
 					PROJECT, COPY build-example.properties to ${user.home}/build.properties CUSTOMIZE 
 					PROPERTIES AND TRIGGER MAVEN BUILD WITH `mvn install -Denv=dev'. -->
 				<config.logger.fileappender.filepath>
-					${${catalina.home}/logs:${user.home}/52n-logs}/${project.artifactId}-${project.version}
+					${catalina.home:-${user.home}}/logs/${project.artifactId}-${project.version}
 				</config.logger.fileappender.filepath>
 				<config.logger.level>DEBUG</config.logger.level>
 				<config.logger.consoleappender.level>DEBUG</config.logger.consoleappender.level>
