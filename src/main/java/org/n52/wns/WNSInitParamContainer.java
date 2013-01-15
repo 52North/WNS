@@ -73,8 +73,6 @@ public class WNSInitParamContainer {
 
     private String wnsUrl = null;
 
-    private String wsdlPath = null;
-
     private WNSDatabaseThread thread = null;
 
     private WNSInitParamContainer(WNSConfig wnsc) throws WNSException {
@@ -107,8 +105,6 @@ public class WNSInitParamContainer {
         this.wnsSchemaLocation = wnsc.getServiceProperties().getWNSSchemaLocation();
         this.ogcExcSchemaLocation = wnsc.getServiceProperties().getOWSSchemaLocation();
         this.wnsUrl = wnsc.getServiceProperties().getWNSURL();
-
-        this.wsdlPath = wnsc.getServiceProperties().getWSDLDocumentPath();
 
     }
 
@@ -185,10 +181,6 @@ public class WNSInitParamContainer {
 
     public WNSConfig getWnsConfig() {
         return this.wnsc;
-    }
-
-    public String getWSDLDocumentPath() {
-        return this.wsdlPath;
     }
 
     public WNSDatabaseThread getDatabaseThread() {

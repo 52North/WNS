@@ -231,7 +231,7 @@ public class WNSRequestHandler {
 						WNSUtil.sendResponse(se.getDocument(),
 								this.ogcExcSchemaLocation, response);
 					}
-					File wsdl = new File(WNSInitParamContainer.getInstance().getWSDLDocumentPath());
+					File wsdl = new File("/wns.wsdl");
 					FileReader reader;
 					try {
 						reader = new FileReader(wsdl);
