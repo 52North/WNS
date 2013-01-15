@@ -71,7 +71,7 @@ import org.x52North.wns.v2.WNSConfigDocument;
  * @author Dennis Dahlmann, e.h.juerrens@52north.org
  * @version 2.0
  */
-
+// TODO extract handler to custom module
 public class MailHandlerBAW2011 implements IMailHandler {
 
 	private String host, smtpuser, smtppwd;
