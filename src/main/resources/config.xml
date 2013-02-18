@@ -163,15 +163,15 @@
 		<EMailHandler>
 			<Provider>org.n52.wns.mail.MailHandlerBAW2011</Provider>			
 			<SMTP>
-				<Host>http://host.de</Host>
-				<User>user</User>
-				<Passwd>password</Passwd>
-				<Sender>smtp.sender.net</Sender>
-				<Authenticate>true</Authenticate>
-				<Port>0000</Port>
-				<EmailSubject>52n Web Notification Service</EmailSubject>
-				<SSL>true</SSL>
-				<TLS>true</TLS>
+                <Host>${mail.smtp.host}</Host>
+                <User>${mail.username}</User>
+                <Passwd>${mail.password}</Passwd>
+                <Sender>${mail.sender.address}</Sender>
+                <Authenticate>${mail.authenticate}</Authenticate>
+                <Port>${mail.port}</Port>
+                <EmailSubject>${mail.subject}</EmailSubject>
+                <SSL>${mail.ssl.enable}</SSL>
+                <TLS>${mail.starttls.enable}</TLS>
 			</SMTP>
 		</EMailHandler>
 		<!--The settings for the XMPP account -->
