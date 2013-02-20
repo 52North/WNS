@@ -1,9 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<groupId>org.n52</groupId>
 		<artifactId>52-North</artifactId>
-		<version>5.6.3</version>
+		<version>5.6.4</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.n52.sensorweb</groupId>
@@ -211,6 +210,21 @@
 			</plugin>
 		</plugins>
 
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.4</version>
+                    <configuration>
+                        <descriptors>
+                            <descriptor>assembly.xml</descriptor>
+                        </descriptors>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
 	</build>
 
 	<repositories>
@@ -262,7 +276,7 @@
 					PROJECT, COPY build-example.properties to ${user.home}/build.properties CUSTOMIZE 
 					PROPERTIES AND TRIGGER MAVEN BUILD WITH `mvn install -Denv=dev'. -->
 				<config.logger.fileappender.filepath>
-					${catalina.home:-${user.home}}/logs/${project.artifactId}-${project.version}
+					${catalina.home:-.}/logs/${project.artifactId}-${project.version}
 				</config.logger.fileappender.filepath>
 				<config.logger.level>DEBUG</config.logger.level>
 				<config.logger.consoleappender.level>DEBUG</config.logger.consoleappender.level>
@@ -274,6 +288,16 @@
 				<org.n52.database.name>52nWNSMessages</org.n52.database.name>
 				<org.n52.database.username>admin</org.n52.database.username>
 				<org.n52.database.password>admin</org.n52.database.password>
+				
+				<mail.username>WNS_MAIL_USER</mail.username>
+				<mail.password>WNS_MAIL_PASSWORD</mail.password>
+				<mail.sender.address>some@address.net</mail.sender.address>
+				<mail.smtp.host>WNS_MAIL_SMTP_HOST</mail.smtp.host>
+				<mail.subject>52n Web Notification Service</mail.subject>
+				<mail.starttls.enable>true</mail.starttls.enable>
+				<mail.port>25</mail.port>
+				<mail.authenticate>true</mail.authenticate>
+				<mail.ssl.enable>true</mail.ssl.enable>
 			</properties>
 		</profile>
 
@@ -290,13 +314,52 @@
 				</filters>
 			</build>
 		</profile>
+		
+		
+        <profile>
+            <id>release</id>
+            <!-- a profile which shall be activated if a release is performed, it 
+                is also automatic activated in the ci environment. -->
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>ci</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <version>2.4</version>
+                        <configuration>
+                            <!-- no build in release:prepare (takes to long time), so in bad cases 
+                                release fails on perform -->
+                            <preparationGoals>clean</preparationGoals>
+                            <autoVersionSubmodules>true</autoVersionSubmodules>
+                            <tagBase>https://svn.52north.org/svn/swe/main/WNS/Service/tags</tagBase>
+                            <connectionUrl>
+                                scm:svn:https://svn.52north.org/svn/swe/main/WNS/Service/trunk/
+                            </connectionUrl>
+                            <goals>deploy, assembly:single</goals>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
 	</profiles>
+	
+    <scm>
+        <connection>scm:svn:https://svn.52north.org/svn/swe/main/WNS/Service/tags/52n-wns-2.1.0</connection>
+        <developerConnection>scm:svn:https://svn.52north.org/svn/swe/main/WNS/Service/tags/52n-wns-2.1.0</developerConnection>
+        <url>https://svn.52north.org/cgi-bin/viewvc.cgi/main/WNS/Service/tags/52n-wns-2.1.0?root=sensorweb</url>
+    </scm>
 
 	<properties>
 		<oxf.version>1.12</oxf.version>
 		<exist.version>0.9.2</exist.version>
-		<oxf.common.xml.version>1.1.4-SNAPSHOT</oxf.common.xml.version>
+		<oxf.common.xml.version>1.1.4</oxf.common.xml.version>
 
 		<test.config.logger.level>INFO</test.config.logger.level>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
