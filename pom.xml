@@ -353,7 +353,7 @@
     <scm>
         <connection>scm:svn:https://svn.52north.org/svn/swe/main/WNS/Service/tags/52n-wns-2.1.0</connection>
         <developerConnection>scm:svn:https://svn.52north.org/svn/swe/main/WNS/Service/tags/52n-wns-2.1.0</developerConnection>
-        <url>https://svn.52north.org/cgi-bin/viewvc.cgi/main/WNS/Service/tags/52n-wns-2.1.0?root=sensorweb</url>
+        <url>https://svn.52north.org/cgi-bin/viewvc.cgi/main/WNS/Service/tags/?root=sensorweb/52n-wns-2.1.0</url>
     </scm>
 
 	<properties>
