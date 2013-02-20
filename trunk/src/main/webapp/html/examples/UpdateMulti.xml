@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UpdateMultiUserRegistration xmlns="http://www.opengis.net/wns/0.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.opengis.net/wns/0.0 ../wns.xsd"
+		service="WNS" version="1.0.0">
+   <MultiUserID>4242</MultiUserID>
+   <addUser>
+      <ID>4230</ID>
+      <ID>4231</ID>
+      <ID>4232</ID>
+   </addUser>
+<removeUser>
+      <ID>4225</ID>
+      <ID>4236</ID>
+   </removeUser>
+</UpdateMultiUserRegistration>

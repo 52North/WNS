@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WNSConfig xmlns="http://www.52north.org/wns/v2" xmlns:wns="http://www.opengis.net/wns/0.0"
+	xmlns:ows="http://www.opengis.net/ows" xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.52north.org/wns/v2 ../../xml/xsd/wnsConfigFiles.xsd">
+	<ServiceProperties>
+		<MaxTTLOfMessages>P7D</MaxTTLOfMessages>
+        <!-- <ExceptionLevel>PlainExceptions</ExceptionLevel> -->
+		<ExceptionLevel>DetailedExceptions</ExceptionLevel>
+		<WNSURL>${org.n52.wns.external.url}</WNSURL>
+		<WNSSchemaLocation>http://www.opengis.net/wns/0.0 http://schemas.opengis.net/wns/0.0.0/wnsAll.xsd</WNSSchemaLocation>
+		<OWSSchemaLocation>http://www.opengis.net/ows http://schemas.opengis.net/ows/1.0.0/owsExceptionReport.xsd</OWSSchemaLocation>
+		<DAOFactoryDriver>org.n52.wns.db.ExistDatabaseDAOFactory</DAOFactoryDriver>
+		<!-- Take care of the "/", don´t use "\" -->
+		<!--If you use the eXist database DAO a property file is not needed!-->
+		<DAOFactoryPropertiesLocation></DAOFactoryPropertiesLocation>
+		<CapabilitiesBaseInformation version="0.0.0">
+			<ows:ServiceIdentification>
+				<ows:Title>52north WNS</ows:Title>
+				<ows:Abstract>WNS for sending messages via various protocols.</ows:Abstract>
+				<ows:Keywords>
+					<ows:Keyword>WNS</ows:Keyword>
+					<ows:Keyword>messaging</ows:Keyword>
+					<ows:Keyword>protocol independent</ows:Keyword>
+				</ows:Keywords>
+				<ows:ServiceType codeSpace="http://opengeospatial.net">OGC:WNS</ows:ServiceType>
+				<ows:ServiceTypeVersion>0.0.0</ows:ServiceTypeVersion>
+				<ows:Fees>NONE</ows:Fees>
+				<ows:AccessConstraints>NONE</ows:AccessConstraints>
+			</ows:ServiceIdentification>
+			<ows:ServiceProvider>
+				<ows:ProviderName>52North GmbH, Muenster, Germany</ows:ProviderName>
+				<ows:ProviderSite xlink:href="http://52north.org/"/>
+				<ows:ServiceContact>
+					<ows:IndividualName>Your Name</ows:IndividualName>
+					<ows:PositionName/>
+					<ows:ContactInfo>
+						<ows:Phone>
+							<ows:Voice/>
+							<ows:Facsimile/>
+						</ows:Phone>
+						<ows:Address>
+							<ows:DeliveryPoint/>
+							<ows:City/>
+							<ows:AdministrativeArea/>
+							<ows:PostalCode/>
+							<ows:Country/>
+							<ows:ElectronicMailAddress>swe@52north.org</ows:ElectronicMailAddress>
+						</ows:Address>
+					</ows:ContactInfo>
+				</ows:ServiceContact>
+			</ows:ServiceProvider>
+			<ows:OperationsMetadata>
+				<ows:Operation name="GetCapabilities">
+					<ows:DCP>
+						<ows:HTTP>
+							<ows:Get xlink:href="${org.n52.wns.external.url}?"/>
+							<ows:Post xlink:href="${org.n52.wns.external.url}"/>
+						</ows:HTTP>
+					</ows:DCP>
+					<ows:Parameter name="service">
+						<ows:Value>WNS</ows:Value>
+					</ows:Parameter>
+					<ows:Parameter name="Sections">
+						<ows:Value>All</ows:Value>
+						<ows:Value>ServiceIdentification</ows:Value>
+						<ows:Value>ServiceProvider</ows:Value>
+						<ows:Value>OperationsMetadata</ows:Value>
+						<ows:Value>Contents</ows:Value>
+					</ows:Parameter>
+				</ows:Operation>
+				<ows:Operation name="Register">
+					<ows:DCP>
+						<ows:HTTP>
+							<ows:Post xlink:href="${org.n52.wns.external.url}"/>
+						</ows:HTTP>
+					</ows:DCP>
+					<ows:Parameter name="service">
+						<ows:Value>WNS</ows:Value>
+					</ows:Parameter>
+					<ows:Parameter name="version">
+						<ows:Value>1.0.0</ows:Value>
+					</ows:Parameter>
+				</ows:Operation>
+				<ows:Operation name="Unregister">
+					<ows:DCP>
+						<ows:HTTP>
+							<ows:Post xlink:href="${org.n52.wns.external.url}"/>
+						</ows:HTTP>
+					</ows:DCP>
+					<ows:Parameter name="service">
+						<ows:Value>WNS</ows:Value>
+					</ows:Parameter>
+					<ows:Parameter name="version">
+						<ows:Value>1.0.0</ows:Value>
+					</ows:Parameter>
+				</ows:Operation>
+				<ows:Operation name="UpdateSingleUserRegistration">
+					<ows:DCP>
+						<ows:HTTP>
+							<ows:Post xlink:href="${org.n52.wns.external.url}"/>
+						</ows:HTTP>
+					</ows:DCP>
+					<ows:Parameter name="service">
+						<ows:Value>WNS</ows:Value>
+					</ows:Parameter>
+					<ows:Parameter name="version">
+						<ows:Value>1.0.0</ows:Value>
+					</ows:Parameter>
+				</ows:Operation>
+				<ows:Operation name="UpdateMultiUserRegistration">
+					<ows:DCP>
+						<ows:HTTP>
+							<ows:Post xlink:href="${org.n52.wns.external.url}"/>
+						</ows:HTTP>
+					</ows:DCP>
+					<ows:Parameter name="service">
+						<ows:Value>WNS</ows:Value>
+					</ows:Parameter>
+					<ows:Parameter name="version">
+						<ows:Value>1.0.0</ows:Value>
+					</ows:Parameter>
+				</ows:Operation>
+				<ows:Operation name="GetMessage">
+					<ows:DCP>
+						<ows:HTTP>
+							<ows:Post xlink:href="${org.n52.wns.external.url}"/>
+						</ows:HTTP>
+					</ows:DCP>
+					<ows:Parameter name="service">
+						<ows:Value>WNS</ows:Value>
+					</ows:Parameter>
+					<ows:Parameter name="version">
+						<ows:Value>1.0.0</ows:Value>
+					</ows:Parameter>
+				</ows:Operation>
+				<ows:Operation name="DoNotification">
+					<ows:DCP>
+						<ows:HTTP>
+							<ows:Post xlink:href="${org.n52.wns.external.url}"/>
+						</ows:HTTP>
+					</ows:DCP>
+					<ows:Parameter name="service">
+						<ows:Value>WNS</ows:Value>
+					</ows:Parameter>
+					<ows:Parameter name="version">
+						<ows:Value>1.0.0</ows:Value>
+					</ows:Parameter>
+				</ows:Operation>
+			</ows:OperationsMetadata>
+		</CapabilitiesBaseInformation>
+		<DataBaseProperties>
+			<DBName>${org.n52.database.name}</DBName>
+			<user>${org.n52.database.username}</user>
+			<password>${org.n52.database.password}</password>
+			<URL>${org.n52.database.url}</URL>
+			<checkDBDuration>30</checkDBDuration>
+		</DataBaseProperties>
+		<DebugMode>false</DebugMode>
+	</ServiceProperties>
+	<RegisteredHandlers>
+		<!--The settings for the smtp account to send emails-->
+		<EMailHandler>
+			<Provider>org.n52.wns.mail.MailHandlerBAW2011</Provider>			
+			<SMTP>
+                <Host>${mail.smtp.host}</Host>
+                <User>${mail.username}</User>
+                <Passwd>${mail.password}</Passwd>
+                <Sender>${mail.sender.address}</Sender>
+                <Authenticate>${mail.authenticate}</Authenticate>
+                <Port>${mail.port}</Port>
+                <EmailSubject>${mail.subject}</EmailSubject>
+                <SSL>${mail.ssl.enable}</SSL>
+                <TLS>${mail.starttls.enable}</TLS>
+			</SMTP>
+		</EMailHandler>
+		<!--The settings for the XMPP account -->
+		<!-- <XMPPHandler>			
+			<Provider>org.n52.wns.xmpp.XMPPHandlerJabber</Provider>
+			<User>xmppjabbername</User>
+			<Passwd>xmppjabberpassword</Passwd>
+			<Host>jabber.org</Host>
+			<Port>5222</Port>
+		</XMPPHandler> -->
+		<!--The settings to send SMS-->
+		<!--<SMSHandler>			
+			<Provider>org.n52.wns.sms.SMSHandlerEcall</Provider>
+			<User>SMSUser</User>
+			<Passwd>SMSpwd</Passwd>
+			<Host>msg.ecall.ch</Host>
+		</SMSHandler> -->
+		<!--The setting for the phone handler, the user name will be concat with the host, user@host-->
+		<!--<PhoneHandler>			
+			<Provider>org.n52.wns.communication.PhoneHandlerEcall</Provider>
+			<User>PhoneUser</User>
+			<Passwd>Phonepwd</Passwd>
+			<Host>voice.ecall.ch</Host>
+		</PhoneHandler> -->
+		<!--The setting for the fax handler, the user name will be concat with the host, user@host-->
+		<!--<FaxHandler>			
+			<Provider>org.n52.wns.communication.FaxHandlerEcall</Provider>
+			<User>FaxUser</User>
+			<Passwd>FaxPwd</Passwd>
+			<Host>fax.ecall.ch</Host>
+		</FaxHandler> -->
+	</RegisteredHandlers>
+</WNSConfig>
