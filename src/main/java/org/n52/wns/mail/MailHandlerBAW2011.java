@@ -208,13 +208,16 @@ public class MailHandlerBAW2011 implements IMailHandler {
                                         String[] words = message.split(" ");
                                         if (words.length >= 2) {
                                             msg.setSubject(subject + ": Benachrichtigung " + words[1]);
+                                            log.debug("set subject: {}", msg.getSubject());
                                         }
+                                        log.debug("message to send: {}", message);
                                         break;
                                     } else {
                                         XmlObject[] longMessage = payload.selectPath("./*");
                                         for (int j = 0; j < longMessage.length; j++) {
                                             if (longMessage[j].getDomNode().getNodeType() == Node.ELEMENT_NODE) {
                                                 message = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + longMessage[0].xmlText(new org.apache.xmlbeans.XmlOptions().setSaveInner());
+                                                log.debug("message to send: {}", message);
                                                 break;
                                             }
                                         }
