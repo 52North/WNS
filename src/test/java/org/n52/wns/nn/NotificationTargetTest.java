@@ -1,12 +1,11 @@
-package test;
-
-import org.apache.xmlbeans.XmlException;
-
+package org.n52.wns.nn;
 import net.opengis.wns.x00.NotificationChannelType;
-import net.opengis.wns.x00.NotificationTargetDocument;
 import net.opengis.wns.x00.NotificationChannelType.WNS;
 import net.opengis.wns.x00.NotificationFormatDocument.NotificationFormat;
+import net.opengis.wns.x00.NotificationTargetDocument;
 import net.opengis.wns.x00.NotificationTargetDocument.NotificationTarget;
+
+import org.apache.xmlbeans.XmlException;
 
 
 public class NotificationTargetTest {
