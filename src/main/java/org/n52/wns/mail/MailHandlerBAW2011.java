@@ -205,11 +205,7 @@ public class MailHandlerBAW2011 implements IMailHandler {
                                 if (item.getLocalName().equalsIgnoreCase("Text")) {
                                     if (item.getChildNodes().getLength() == 1) {
                                         message = normalizeString(item.getFirstChild().getNodeValue());
-                                        String[] words = message.split(" ");
-                                        if (words.length >= 2) {
-                                            msg.setSubject(subject + ": Benachrichtigung " + words[1]);
-                                            log.debug("set subject: {}", msg.getSubject());
-                                        }
+                                        setSubjectWithRegelName(msg, message);
                                         log.debug("message to send: {}", message);
                                         break;
                                     } else {
@@ -310,6 +306,15 @@ public class MailHandlerBAW2011 implements IMailHandler {
             }
         }
 
+    }
+
+    protected void setSubjectWithRegelName(Message msg, String message) throws MessagingException {
+        String[] words = message.split(" ");
+        for (int j = 0; j < words.length; j++) {
+            if (words[j].equalsIgnoreCase("regel") && words.length > j + 1) {
+                msg.setSubject(subject + ": Benachrichtigung " + words[j + 1]);
+            }
+        }
     }
 
     protected String normalizeString(String text) {
