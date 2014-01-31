@@ -16,9 +16,17 @@ Main functions
  http or xmpp the message will be delivered completely.
  
  To setup the WNS please refer to the installation guide, found in the documentation folder
+
+Release 52n-wns-2.1.2
+=====================
+- Fix parsing Regelname containing spaces within BAW2011 Email handler
+
+Release 52n-wns-2.1.1
+=====================
+- Sophisticate Regelname parsing within BAW2011 Email handler
  
-Release 52n-wns-2.1.0-SNAPSHOT
-==============================
+Release 52n-wns-2.1.0
+=====================
 - Switch to a Maven managed project
 - Dropped project hosted xsd files. Now 52n-xml-wns-v009 dependency is being selected
   automatically from Maven
