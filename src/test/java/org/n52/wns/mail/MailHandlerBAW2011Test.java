@@ -57,11 +57,11 @@ public class MailHandlerBAW2011Test {
         Message msg = new TestableMessage();
         msg.setSubject("Subject to replace");
         String message = "Regel" +
-        		" NORDERNEY_RIFFGAT_under_600cm hat einen Alarm" +
+        		" \"_NORDERNEY RIFFGAT under 600cm_\" hat einen Alarm" +
         		" ausgeloest um 13:09 Uhr am" +
         		" 28.3.2011";
         handler.setSubjectWithRegelName(msg, handler.normalizeString(message));
-        assertThat(msg.getSubject(), containsString("NORDERNEY_RIFFGAT_under_600cm"));
+        assertThat(msg.getSubject(), containsString("NORDERNEY RIFFGAT under 600cm"));
     }
     
     @Test public void
