@@ -309,11 +309,13 @@ public class MailHandlerBAW2011 implements IMailHandler {
     }
 
     protected void setSubjectWithRegelName(Message msg, String message) throws MessagingException {
-        String[] words = message.split("\"");
-        if (words.length == 3) {
-            msg.setSubject(subject + ": Benachrichtigung " + words[1]);
+        int regelNameBegin = message.indexOf("'");
+        int regeNameEnd = message.lastIndexOf("'");
+        if (regelNameBegin < regeNameEnd) {
+            String regelname = message.substring(regelNameBegin + 1, regeNameEnd);
+            msg.setSubject(subject + ": Benachrichtigung \"" + regelname + "\"");
         } else {
-            words = message.split(" ");
+            String[] words = message.split(" ");
             for (int j = 0; j < words.length; j++) {
                 if (words[j].equalsIgnoreCase("regel") && words.length > j + 1) {
                     msg.setSubject(subject + ": Benachrichtigung " + words[j + 1]);
