@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<groupId>org.n52</groupId>
 		<artifactId>52-North</artifactId>
@@ -7,9 +8,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.n52.sensorweb</groupId>
 	<artifactId>52n-wns</artifactId>
-	<version>2.1.3-SNAPSHOT</version>
+	<version>2.1.1</version>
 	<name>52North WNS</name>
-	<inceptionYear>2013</inceptionYear>
+	<inceptionYear>2008</inceptionYear>
 	<description>52North implementation for OGC RFC WNS 0.8.3</description>
 	<issueManagement>
 		<system>Bugzilla</system>
@@ -62,9 +63,9 @@
 			<version>${exist.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.sun.mail</groupId>
-			<artifactId>javax.mail</artifactId>
-			<version>1.4.5</version>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
 		</dependency>
 		<dependency>
 			<groupId>jivesoftware</groupId>
@@ -89,10 +90,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.hamcrest</groupId>
-		    <artifactId>hamcrest-all</artifactId>
-		    <version>1.3</version>
-		    <scope>test</scope>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -194,10 +195,10 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
+			<!--<plugin>
 				<groupId>com.google.code.maven-svn-revision-number-plugin</groupId>
 				<artifactId>svn-revision-number-maven-plugin</artifactId>
-				<version>1.12</version> <!-- please use the latest version -->
+				<version>1.13</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -213,6 +214,26 @@
 						</entry>
 					</entries>
 				</configuration>
+			</plugin> -->
+			<plugin>
+				<groupId>org.jasig.maven</groupId>
+				<artifactId>maven-notice-plugin</artifactId>
+				<configuration>
+					<noticeTemplate>misc/NOTICE.template</noticeTemplate>
+					<licenseMapping>
+						<param>misc/license-mappings.xml</param>
+					</licenseMapping>
+					<generateChildNotices>false</generateChildNotices>
+				</configuration>
+				<executions>
+					<execution>
+						<id>check-licenses</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 
@@ -227,6 +248,21 @@
 							<descriptor>assembly.xml</descriptor>
 						</descriptors>
 					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>com.mycila</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>2.2</version>
+				</plugin>
+				<plugin>
+					<groupId>org.jasig.maven</groupId>
+					<artifactId>maven-notice-plugin</artifactId>
+					<version>1.0.5</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>1.5</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -282,7 +318,7 @@
 					PROJECT, COPY build-example.properties to ${user.home}/build.properties CUSTOMIZE 
 					PROPERTIES AND TRIGGER MAVEN BUILD WITH `mvn install -Denv=dev'. -->
 				<config.logger.fileappender.filepath>
-					${catalina.base:-.}/logs/${project.artifactId}-${project.version}
+					${catalina.home:-.}/logs/${project.artifactId}-${project.version}
 				</config.logger.fileappender.filepath>
 				<config.logger.level>DEBUG</config.logger.level>
 				<config.logger.consoleappender.level>DEBUG</config.logger.consoleappender.level>
@@ -353,13 +389,38 @@
 				</plugins>
 			</build>
 		</profile>
+		
+		<profile>
+			<id>create-license-list</id>
+			<build>
+				<plugins>
+				  <plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<configuration>
+						<useMissingFile>true</useMissingFile>
+						<fileTemplate>misc/license-as-csv.ftl</fileTemplate>
+					</configuration>
+					<executions>
+					  <execution>
+						<id>first</id>
+						<goals>
+						  <goal>aggregate-add-third-party</goal>
+						</goals>
+						<phase>generate-resources</phase>
+					  </execution>
+					</executions>
+				  </plugin>
+				</plugins>
+			</build>
+		</profile>
 
 	</profiles>
 
 	<scm>
-		<connection>scm:svn:https://svn.52north.org/svn/swe/main/WNS/Service/trunk/</connection>
-		<developerConnection>scm:svn:https://svn.52north.org/svn/swe/main/WNS/Service/trunk/</developerConnection>
-		<url>https://svn.52north.org/cgi-bin/viewvc.cgi/main/WNS/Service/trunk/?root=sensorweb</url>
+		<connection>scm:svn:https://svn.52north.org/svn/swe/main/WNS/Service/tags/52n-wns-2.1.1</connection>
+		<developerConnection>scm:svn:https://svn.52north.org/svn/swe/main/WNS/Service/tags/52n-wns-2.1.1</developerConnection>
+		<url>https://svn.52north.org/cgi-bin/viewvc.cgi/main/WNS/Service/tags/?root=sensorweb/52n-wns-2.1.1</url>
 	</scm>
 
 	<properties>
